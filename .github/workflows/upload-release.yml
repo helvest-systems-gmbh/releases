@@ -73,8 +73,11 @@ jobs:
     needs: setup
     
     steps:
-      - name: Print repo
-        run: ls .
+      - name: Install AVR toolchain
+        run: sudo apt-get install binutils gcc-avr avr-libc
+      
+      - name: Check dependencies version
+        run: avr-g++ --version
         
       - name: Build firmware release
         if: "env.NIGHTLY_ALREADY_EXISTS == 'false'"
