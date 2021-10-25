@@ -7,9 +7,9 @@
 
 name: Build new release and push it to github
 
-on:
-  schedule:
-    - cron: "0 0 * * *"
+on: [push]
+#   schedule:
+#     - cron: "0 0 * * *"
 
 env:
   RELEASE_BRANCH: release
