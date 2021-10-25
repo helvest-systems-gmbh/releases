@@ -84,7 +84,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: hp100-firmware.hex
-          path: hp100/upload/hp100-firmware.hex
+          path: hp100/hp100-firmware.hex
 
   add-release-and-push:
     runs-on: ubuntu-latest
