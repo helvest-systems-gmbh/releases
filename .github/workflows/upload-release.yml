@@ -7,9 +7,9 @@
 
 name: Build new release and push it to github
 
-on:
-  schedule:
-    - cron: "0 0 * * *"
+on: [push]
+#   schedule:
+#     - cron: "0 0 * * *"
 
 env:
   RELEASE_BRANCH: release
@@ -25,11 +25,15 @@ jobs:
       nightly-already-exists: ${{ env.NIGHTLY_ALREADY_EXISTS }}
 
     steps:
+      - name: Log secrets
+        run: |
+          echo "${{ secrets.ACCESS_TOKEN }}"
+          
       - uses: actions/checkout@v2
         with:
           repository: "helvest-systems-gmbh/hp100"
           ref: ${{ env.RELEASE_BRANCH }}
-          token: ${{ secrets.RELEASES_ACTION_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN }}
           submodules: recursive
           path: "hp100/"
 
