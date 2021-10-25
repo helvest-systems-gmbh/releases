@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "releases",
+  "version": "0.0.0",
+  "description": "Current and historical Helvest firmware releases used by updating apps",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helvest-systems-gmbh/releases.git"
+  },
+  "author": "Helvest Systems Gmbh <support@helvest.ch>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/helvest-systems-gmbh/releases/issues"
+  },
+  "homepage": "https://github.com/helvest-systems-gmbh/releases#readme"
+}
