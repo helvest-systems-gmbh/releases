@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Log secrets
         run: |
-          echo "${{ secrets.ACCESS_TOKEN }}"
+          echo "tokne: ${{ secrets.ACCESS_TOKEN }}"
           
       - uses: actions/checkout@v2
         with:
