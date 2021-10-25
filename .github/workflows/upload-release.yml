@@ -17,7 +17,7 @@ env:
   COMMITTER_EMAIL: releases@ethereum.org
 
 jobs:
-  setup:
+  build-release:
     runs-on: ubuntu-latest
     outputs:
       hp100-version: ${{ env.HP100_VERSION }}
@@ -68,11 +68,6 @@ jobs:
           # spurious e-mail notifications about the failure. Instead we have to make do with `if`s.
           echo "NIGHTLY_ALREADY_EXISTS=${nightly_already_exists}" >> $GITHUB_ENV
   
-  build:
-    runs-on: ubuntu-latest
-    needs: setup
-    
-    steps:
       - name: Install AVR toolchain
         run: sudo apt-get install binutils gcc-avr avr-libc
       
@@ -93,14 +88,12 @@ jobs:
 
   add-release-and-push:
     runs-on: ubuntu-latest
-    needs: 
-      - setup
-      - build
+    needs: build-release
 
     env:
-      NIGHTLY_VERSION: ${{ needs.setup.outputs.nightly-version }}
+      NIGHTLY_VERSION: ${{ needs.build-release.outputs.nightly-version }}
 
-    if: "needs.setup.outputs.nightly-already-exists == 'false'"
+    if: "needs.build-release.outputs.nightly-already-exists == 'false'"
     steps:
       - uses: actions/checkout@v2
         with:
