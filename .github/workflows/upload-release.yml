@@ -80,14 +80,12 @@ jobs:
         run: avr-g++ --version
         
       - name: Build firmware release
-        if: "env.NIGHTLY_ALREADY_EXISTS == 'false'"
         run: |
           cd hp100/
-          # Note that this script will spawn and build inside a docker image (which works just fine in github actions).
-          scripts/build_release.sh
+          make
+          mv main.hex hp100-firmware.hex
 
       - name: Upload release hex as an artifact
-        if: "env.NIGHTLY_ALREADY_EXISTS == 'false'"
         uses: actions/upload-artifact@v2
         with:
           name: hp100-firmware.hex
