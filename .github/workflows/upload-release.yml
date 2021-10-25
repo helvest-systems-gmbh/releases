@@ -19,6 +19,9 @@ env:
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: ['hp100', 'sm400'] 
     outputs:
       hp100-version: ${{ env.HP100_VERSION }}
       nightly-version: ${{ env.NIGHTLY_VERSION }}
@@ -27,11 +30,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: "helvest-systems-gmbh/hp100"
+          repository: "helvest-systems-gmbh/${{ matrix.repo }}"
           ref: ${{ env.RELEASE_BRANCH }}
           token: ${{ secrets.ACCESS_TOKEN }}
           submodules: recursive
-          path: "hp100/"
+          path: ${{ matrix.repo }}
 
       - name: Clone hp100 repository without checking out a working copy
         run: |
@@ -76,15 +79,15 @@ jobs:
         
       - name: Build firmware release
         run: |
-          cd hp100/
+          cd "${matrix.repo}"
           make
-          mv main.hex hp100-firmware.hex
+          mv main.hex "${matrix.repo}-firmware.hex"
 
       - name: Upload release hex as an artifact
         uses: actions/upload-artifact@v2
         with:
-          name: hp100-firmware.hex
-          path: hp100/hp100-firmware.hex
+          name: ${{ matrix.repo }}-firmware.hex
+          path: ${{ matrix.repo }}/${{ matrix.repo }}-firmware.hex
 
   add-release-and-push:
     runs-on: ubuntu-latest
