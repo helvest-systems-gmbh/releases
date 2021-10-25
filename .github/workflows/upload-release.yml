@@ -78,10 +78,12 @@ jobs:
         run: avr-g++ --version
         
       - name: Build firmware release
+        env:
+          BOARD: ${{ matrix.repo }}
         run: |
-          cd "${matrix.repo}"
+          cd "$BOARD"
           make
-          mv main.hex "${matrix.repo}-firmware.hex"
+          mv main.hex "$BOARD-firmware.hex"
 
       - name: Upload release hex as an artifact
         uses: actions/upload-artifact@v2
