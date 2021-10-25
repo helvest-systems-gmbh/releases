@@ -28,6 +28,7 @@ jobs:
       - name: Log secrets
         run: |
           echo "${{ secrets }}"
+          
       - uses: actions/checkout@v2
         with:
           repository: "helvest-systems-gmbh/hp100"
