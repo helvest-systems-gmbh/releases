@@ -74,7 +74,7 @@ jobs:
     
     steps:
       - name: Print repo
-        run: ls $PWD
+        run: ls .
         
       - name: Build firmware release
         if: "env.NIGHTLY_ALREADY_EXISTS == 'false'"
