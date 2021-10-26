@@ -41,7 +41,7 @@ jobs:
           cd hp100/
           ls -al
           last_tag="$(git describe --tags --abbrev=0)"
-          gino=$([[ $last_tag == release/* ]])
+          gino=$([[ $last_tag == release/* ]] || echo "ciao")
           echo "'Hello, $gino'"
           is_release="$(grep -q "release" <<< "$last_tag" && echo true || echo false)"
           echo $release
