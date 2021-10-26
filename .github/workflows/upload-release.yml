@@ -17,7 +17,7 @@ env:
   COMMITTER_EMAIL: releases@helvest.ch
 
 jobs:
-  build-release:
+  check-requirements:
     runs-on: ubuntu-latest
     outputs:
       is-release: ${{ env.IS_RELEASE }}
@@ -25,13 +25,10 @@ jobs:
       release-already-exists: ${{ env.RELEASE_ALREADY_EXISTS }}
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: "helvest-systems-gmbh/hp100"
-          ref: ${{ env.RELEASE_BRANCH }}
-          token: ${{ secrets.ACCESS_TOKEN }}
-          submodules: recursive
-          path: hp100
+      - name: Clone hp100 and releases repositories without checking out working copies
+        run: |
+          git clone --no-checkout --branch "$RELEASE_BRANCH" "https://github.com/helvest-systems-gmbh/hp100.git" hp100/
+          git clone --no-checkout "https://github.com/${GITHUB_REPOSITORY}.git" releases/
 
       - name: Determine new release version
         run: |
@@ -43,7 +40,6 @@ jobs:
           test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV
 
       - name: Check if there's already a release with the same version
-        if: "outputs.is-release == 'true'"
         run: |
           cd releases/
           matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v${RELEASE_VERSION}.hex")"
@@ -52,23 +48,33 @@ jobs:
           # There's no way to just stop a job without failing and that would spam everyone with
           # spurious e-mail notifications about the failure. Instead we have to make do with `if`s.
           echo "RELEASE_ALREADY_EXISTS=${release_already_exists}" >> $GITHUB_ENV
-  
+          
+  build-release:
+    runs-on: ubuntu-latest
+    needs: check-requirements
+    
+    if: "needs.check-requirements.outputs.is_release == 'true'"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: "helvest-systems-gmbh/hp100"
+          ref: ${{ env.RELEASE_BRANCH }}
+          token: ${{ secrets.ACCESS_TOKEN }}
+          submodules: recursive
+          path: hp100
+          
       - name: Install AVR toolchain
-        if: "outputs.is-release == 'true'"
         run: sudo apt-get install binutils gcc-avr avr-libc
       
       - name: Check dependencies version
-        if: "outputs.is-release == 'true'"
         run: avr-g++ --version
         
       - name: Build firmware release
-        if: "outputs.is-release == 'true'"
         run: |
           cd hp100
           make
       
       - name: Encrypt firmware release
-        if: "outputs.is-release == 'true'"
         env:
           ENCRYPTION_KEY: ${{ secrets.RELEASE_ENCRYPTION_KEY }}
         run: |
@@ -77,7 +83,6 @@ jobs:
           prgx encrypt main.hex -k "$ENCRYPTION_KEY" -o hp100-firmware.hex
 
       - name: Upload release hex as an artifact
-        if: "outputs.is-release == 'true'"
         uses: actions/upload-artifact@v2
         with:
           name: hp100-firmware.hex
@@ -85,12 +90,14 @@ jobs:
 
   add-release-and-push:
     runs-on: ubuntu-latest
-    needs: build-release
+    needs: 
+      - check-requirements
+      - build-release
 
     env:
       FULL_RELEASE_VERSION: ${{ needs.build-release.outputs.full-release-version }}
 
-    if: "needs.build-release.outputs.release-already-exists == 'false'"
+    if: "needs.check-requirements.outputs.release-already-exists == 'false'"
     steps:
       - uses: actions/checkout@v2
         with:
