@@ -20,7 +20,8 @@ jobs:
   build-release:
     runs-on: ubuntu-latest
     outputs:
-      full-release-version: ${{ env.FULL_RELEASE_VERSION }}
+      is-release: ${{ env.IS_RELEASE }}
+      release-version: ${{ env.RELEASE_VERSION }}
       release-already-exists: ${{ env.RELEASE_ALREADY_EXISTS }}
 
     steps:
@@ -32,35 +33,20 @@ jobs:
           submodules: recursive
           path: hp100
 
-      - name: Clone releases repository without checking out a working copy
-        run: |
-          git clone --no-checkout --branch main "https://github.com/${GITHUB_REPOSITORY}.git" releases/
-
-          # For some reason git stages all files for deletion when you use --no-checkout
-          cd releases/
-          git reset HEAD --quiet
-
       - name: Determine new release version
         run: |
           cd hp100/
-          last_commit_timestamp=$(git log -1 --date=iso --format=%ad HEAD)
-          last_commit_date=$(date --date="$last_commit_timestamp" --utc +%Y.%-m.%-d)
-          last_commit_hash=$(git rev-parse --short=8 HEAD)
-          release_version=$(echo "2.5")
-          full_release_version="v${release_version}.${last_commit_date}+commit.${last_commit_hash}"
+          last_tag="$(git describe --tags --abbrev=0)"
+          is_release="$([[ $last_tag == release/* ]] && echo true || echo false)"
 
-          echo "LAST_COMMIT_DATE=${last_commit_date}" >> $GITHUB_ENV
-          echo "LAST_COMMIT_HASH=${last_commit_hash}" >> $GITHUB_ENV
-          echo "RELEASE_VERSION=${release_version}" >> $GITHUB_ENV
-          echo "FULL_RELEASE_VERSION=${full_release_version}" >> $GITHUB_ENV
+          echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
+          test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV
 
-      - name: Check if there's already a release with the same date or commit ID
+      - name: Check if there's already a release with the same version
+        if: "outputs.is-release == 'true'"
         run: |
           cd releases/
-          matching_release_in_the_repo="$(
-            git ls-files "hp100/hp100-firmware-v${RELEASE_VERSION}.${LAST_COMMIT_DATE}+commit.*.hex";
-            git ls-files "hp100/hp100-firmware-v${RELEASE_VERSION}.*+commit.${LAST_COMMIT_HASH}.hex"
-          )"
+          matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v${RELEASE_VERSION}.hex")"
           release_already_exists="$(test -n "$matching_release_in_the_repo" && echo true || echo false)"
 
           # There's no way to just stop a job without failing and that would spam everyone with
@@ -68,17 +54,21 @@ jobs:
           echo "RELEASE_ALREADY_EXISTS=${release_already_exists}" >> $GITHUB_ENV
   
       - name: Install AVR toolchain
+        if: "outputs.is-release == 'true'"
         run: sudo apt-get install binutils gcc-avr avr-libc
       
       - name: Check dependencies version
+        if: "outputs.is-release == 'true'"
         run: avr-g++ --version
         
       - name: Build firmware release
+        if: "outputs.is-release == 'true'"
         run: |
           cd hp100
           make
       
       - name: Encrypt firmware release
+        if: "outputs.is-release == 'true'"
         env:
           ENCRYPTION_KEY: ${{ secrets.RELEASE_ENCRYPTION_KEY }}
         run: |
@@ -87,6 +77,7 @@ jobs:
           prgx encrypt main.hex -k "$ENCRYPTION_KEY" -o hp100-firmware.hex
 
       - name: Upload release hex as an artifact
+        if: "outputs.is-release == 'true'"
         uses: actions/upload-artifact@v2
         with:
           name: hp100-firmware.hex
