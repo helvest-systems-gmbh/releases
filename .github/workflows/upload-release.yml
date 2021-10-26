@@ -41,7 +41,9 @@ jobs:
           cd hp100/
           ls -al
           last_tag="$(git describe --tags --abbrev=0)"
+          echo $last_tag
           is_release="$([[ $last_tag == release/* ]] && echo true || echo false)"
+          echo $release
 
           echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
           test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV
