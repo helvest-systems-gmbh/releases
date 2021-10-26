@@ -77,7 +77,14 @@ jobs:
         run: |
           cd hp100
           make
-          mv main.hex hp100-firmware.hex
+      
+      - name: Encrypt firmware release
+        env:
+          ENCRYPTION_KEY: ${{ secrets.RELEASE_ENCRYPTION_KEY }}
+        run: |
+          cd hp100
+          npm install -g @prgx/cli
+          prgx encrypt main.hex -k "$ENCRYPTION_KEY" -o hp100-firmware.hex
 
       - name: Upload release hex as an artifact
         uses: actions/upload-artifact@v2
