@@ -41,19 +41,20 @@ jobs:
           cd hp100/
           ls -al
           last_tag="$(git describe --tags --abbrev=0)"
-          echo $last_tag
+          echo "Last tag: $last_tag"
           is_release=$([[ $last_tag == release/* ]] && echo "true" || echo "false")
-          echo $is_release
-
+          echo "Is release? $is_release"
           echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
           test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV || true
 
       - name: Check if there's already a release with the same version
         if: "env.IS_RELEASE == 'true'"
         run: |
+          echo "Release version: $RELEASE_VERSION"
           cd releases/
-          matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v${RELEASE_VERSION}.hex")"
+          matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v$RELEASE_VERSION.hex")"
           release_already_exists="$(test -n "$matching_release_in_the_repo" && echo true || echo false)"
+          echo "Already exists? $release_already_exists"
 
           # There's no way to just stop a job without failing and that would spam everyone with
           # spurious e-mail notifications about the failure. Instead we have to make do with `if`s.
