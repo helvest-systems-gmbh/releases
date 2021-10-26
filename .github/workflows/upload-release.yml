@@ -45,10 +45,10 @@ jobs:
           echo $is_release
 
           echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
-          test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV
+          test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV || true
 
       - name: Check if there's already a release with the same version
-        if: "outputs.is_release == 'true'"
+        if: "env.IS_RELEASE == 'true'"
         run: |
           cd releases/
           matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v${RELEASE_VERSION}.hex")"
