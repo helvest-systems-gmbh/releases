@@ -26,8 +26,10 @@ jobs:
 
     steps:
       - name: Clone hp100 and releases repositories without checking out working copies
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          git clone --no-checkout --branch "$RELEASE_BRANCH" "https://github.com/helvest-systems-gmbh/hp100.git" hp100/
+          git clone --no-checkout --branch "$RELEASE_BRANCH" "https://${ACCESS_TOKEN}@github.com/helvest-systems-gmbh/hp100.git" hp100/
           git clone --no-checkout "https://github.com/${GITHUB_REPOSITORY}.git" releases/
 
       - name: Determine new release version
