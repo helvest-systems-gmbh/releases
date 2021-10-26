@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check-requirements
     
-    if: "needs.check-requirements.outputs.is_release == 'true'"
+    if: "needs.check-requirements.outputs.is-release == 'true'"
     steps:
       - uses: actions/checkout@v2
         with:
