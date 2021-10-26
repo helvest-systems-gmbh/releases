@@ -42,7 +42,7 @@ jobs:
           ls -al
           last_tag="$(git describe --tags --abbrev=0)"
           echo $last_tag
-          is_release="$([[ $last_tag == release/* ]] && echo true || echo false)"
+          is_release="$(grep -q "release" <<< "$last_tag" && echo true || echo false)"
           echo $release
 
           echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
