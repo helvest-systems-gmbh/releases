@@ -1,6 +1,6 @@
 # The idea is that every day at midnight (i.e. 0 0 * * * in cron syntax), we
 # fetch main repos (for now only the hp100 one) and see if there any new releses.
-# These are marked with a tag formatted as follows `release-vX.Y`. If there is one,
+# These are marked with a tag formatted as follows `release/X.Y`. If there is one,
 # we build, encrypt and upload it to the repo.
 #
 # NOTE: source its based on https://github.com/ethereum/solc-bin/blob/gh-pages/.github/workflows/nightly-emscripten.yml
@@ -41,6 +41,7 @@ jobs:
           cd hp100/
           ls -al
           last_tag="$(git describe --tags --abbrev=0)"
+          echo $last_tag
           is_release=$([[ $last_tag == release/* ]] && echo "true" || echo "false")
           echo $is_release
 
