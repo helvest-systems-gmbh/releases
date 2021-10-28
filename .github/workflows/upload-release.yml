@@ -106,7 +106,7 @@ jobs:
       - build-release
 
     env:
-      RELEASE_VERSION: ${{ needs.build-release.outputs.release-version }}
+      RELEASE_VERSION: ${{ needs.check-requirements.outputs.release-version }}
 
     if: "needs.check-requirements.outputs.release-already-exists == 'false'"
     steps:
