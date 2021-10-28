@@ -102,13 +102,13 @@ fs.readdir(RELEASES_DIR, { withFileTypes: true }, async (err, files) => {
     }, {}),
   };
   fs.writeFile(
-    path.join(__dirname, dir, "/manifest.json"),
+    path.join(RELEASES_DIR, "/manifest.json"),
     JSON.stringify(manifest, null, 2),
     (err) => {
       if (err) {
         throw err;
       }
-      console.log("Updated " + dir + "/manifest.json");
+      console.log("Updated " + RELEASES_DIR + "/manifest.json");
     }
   );
 });
