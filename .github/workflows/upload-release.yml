@@ -37,8 +37,8 @@ jobs:
           git clone --no-checkout "https://github.com/${GITHUB_REPOSITORY}.git" releases/
           
           # For some reason git stages all files for deletion when you use --no-checkout
-          cd hp100/ && git reset HEAD --quiet
-          cd releases/ && git reset HEAD --quiet
+          pushd hp100/ && git reset HEAD --quiet && popd
+          pushd releases/ && git reset HEAD --quiet && popd
 
       - name: Determine new release version
         run: |
