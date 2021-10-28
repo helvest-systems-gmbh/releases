@@ -129,4 +129,5 @@ jobs:
       - name: Run add-release-and-push.sh
         run: |
           cd releases/
+          echo "./add-release-and-push.sh ../hp100-firmware.hex $RELEASE_VERSION"
           ./add-release-and-push.sh ../hp100-firmware.hex "$RELEASE_VERSION"
