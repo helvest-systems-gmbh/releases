@@ -68,7 +68,7 @@ fs.readdir(RELEASES_DIR, { withFileTypes: true }, async (err, files) => {
         })
         .filter(Boolean)
         .map(async (pars) => {
-          return await makeEntry(dir, pars);
+          return await makeEntry(RELEASES_DIR, pars);
         })
     )
   ).sort((a, b) => {
