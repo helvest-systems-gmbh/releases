@@ -41,8 +41,6 @@ fs.readdir(RELEASES_DIR, { withFileTypes: true }, async (err, files) => {
   if (err) {
     throw err;
   }
-  
-  console.log(files);
 
   const binaryPrefix = "hp100-firmware";
   const binaryExtensions = [".hex"];
@@ -70,7 +68,7 @@ fs.readdir(RELEASES_DIR, { withFileTypes: true }, async (err, files) => {
         })
         .filter(Boolean)
         .map(async (pars) => {
-          return await makeEntry(RELEASES_DIR, pars);
+          return await makeEntry(path.basename(RELEASES_DIR), pars);
         })
     )
   ).sort((a, b) => {
