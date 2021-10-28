@@ -106,7 +106,7 @@ jobs:
       - build-release
 
     env:
-      FULL_RELEASE_VERSION: ${{ needs.build-release.outputs.full-release-version }}
+      RELEASE_VERSION: ${{ needs.build-release.outputs.release-version }}
 
     if: "needs.check-requirements.outputs.release-already-exists == 'false'"
     steps:
@@ -129,4 +129,4 @@ jobs:
       - name: Run add-release-and-push.sh
         run: |
           cd releases/
-          ./add-release-and-push.sh ../hp100-firmware.hex "$FULL_RELEASE_VERSION"
+          ./add-release-and-push.sh ../hp100-firmware.hex "$RELEASE_VERSION"
