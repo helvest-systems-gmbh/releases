@@ -7,9 +7,9 @@
 
 name: Build new release and push it to github
 
-on: [push]
-#   schedule:
-#     - cron: "0 0 * * *"
+on:
+  schedule:
+    - cron: "0 0 * * *"
 
 env:
   RELEASE_BRANCH: release
@@ -56,8 +56,6 @@ jobs:
         run: |
           echo "Release version: $RELEASE_VERSION"
           cd releases/
-          echo "Git files"
-          git ls-files
           matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v$RELEASE_VERSION.hex")"
           release_already_exists="$(test -n "$matching_release_in_the_repo" && echo true || echo false)"
           echo "Already exists? $release_already_exists"
