@@ -41,6 +41,8 @@ fs.readdir(RELEASES_DIR, { withFileTypes: true }, async (err, files) => {
   if (err) {
     throw err;
   }
+  
+  console.log(files);
 
   const binaryPrefix = "hp100-firmware";
   const binaryExtensions = [".hex"];
