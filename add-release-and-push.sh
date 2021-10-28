@@ -34,7 +34,7 @@ cp "$release_firmware" "hp100/hp100-firmware-v${release_version}.hex"
 
 # Stage the new nightly before running the list update to be able to detect any unintended changes caused by the script.
 git add --verbose "hp100/hp100-firmware-v${release_version}.hex"
-./update
+node ./update-manifest.js
 git add --verbose hp100/manifest.json
 
 git commit --message "Release v${release_version}"
