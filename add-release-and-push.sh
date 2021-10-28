@@ -19,8 +19,8 @@ die() {
     >&2 echo "ERROR: $@" && false
 }
 
-nightly_binary="$1"
-nightly_version="$2"
+release_firmware="$1"
+release_version="$2"
 (( $# == 2 )) || die "Expected exactly 2 parameters."
 
 if [[ $(git status --porcelain) != "" ]]; then
@@ -28,22 +28,16 @@ if [[ $(git status --porcelain) != "" ]]; then
     die "Uncommitted and/or untracked files present. This script must be executed in a clean working copy of the repository."
 fi
 
-echo "Adding hp100/hp100-firmware-${nightly_version}.hex"
-[[ ! -e "hp100/hp100-firmware-${nightly_version}.hex" ]] || die "File hp100/hp100-firmware-${nightly_version}.hex already exists."
-cp "$nightly_binary" "hp100/hp100-firmware-${nightly_version}.hex"
+echo "Adding hp100/hp100-firmware-v${release_version}.hex"
+[[ ! -e "hp100/hp100-firmware-v${release_version}.hex" ]] || die "File hp100/hp100-firmware-v${release_version}.hex already exists."
+cp "$release_firmware" "hp100/hp100-firmware-v${release_version}.hex"
 
 # Stage the new nightly before running the list update to be able to detect any unintended changes caused by the script.
-git add --verbose "hp100/hp100-firmware-${nightly_version}.hex"
+git add --verbose "hp100/hp100-firmware-v${release_version}.hex"
+./update
+git add --verbose hp100/manifest.json
 
-# npm config set package-lock false
-# npm install
-# npm run update
-# rm -r node_modules/
-
-git add --verbose hp100/hp100-firmware.hex
-git add --verbose hp100/manifest.*
-
-git commit --message "Release ${nightly_version}"
+git commit --message "Release v${release_version}"
 
 if [[ $(git status --porcelain) != "" ]]; then
     >&2 git status
