@@ -1,6 +1,17 @@
 {
-  "latestRelease": "3.2",
+  "latestRelease": "3.4",
   "releases": {
+    "3.4": {
+      "path": "hp100-firmware-v3.4.hex",
+      "version": "3.4",
+      "hardwareSupport": [
+        {
+          "model": "HP100",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "a7bae0a328b221b1e110f77d847654404e88e71f"
+    },
     "3.2": {
       "path": "hp100-firmware-v3.2.hex",
       "version": "3.2",
