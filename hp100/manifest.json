@@ -1,10 +1,9 @@
 {
-  "latestRelease": "3.4",
   "releases": {
     "3.4": {
       "path": "hp100-firmware-v3.4.hex",
       "version": "3.4",
-      "hardwareSupport": [
+      "supports": [
         {
           "model": "HP100",
           "version": "1.0"
@@ -15,7 +14,7 @@
     "3.2": {
       "path": "hp100-firmware-v3.2.hex",
       "version": "3.2",
-      "hardwareSupport": [
+      "supports": [
         {
           "model": "HP100",
           "version": "1.0"
@@ -26,7 +25,7 @@
     "3.1": {
       "path": "hp100-firmware-v3.1.hex",
       "version": "3.1",
-      "hardwareSupport": [
+      "supports": [
         {
           "model": "HP100",
           "version": "1.0"
@@ -37,7 +36,7 @@
     "2.5": {
       "path": "hp100-firmware-v2.5.hex",
       "version": "2.5",
-      "hardwareSupport": [
+      "supports": [
         {
           "model": "HP100",
           "version": "1.0"

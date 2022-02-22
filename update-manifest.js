@@ -26,7 +26,7 @@ const makeEntry = async (dir, parsedFileName) => {
   return {
     path: parsedFileName[0],
     version: parsedFileName[1],
-    hardwareSupport: [
+    supports: [
       {
         model: "HP100",
         version: "1.0",
@@ -95,7 +95,6 @@ fs.readdir(RELEASES_DIR, { withFileTypes: true }, async (err, files) => {
   });
 
   const manifest = {
-    latestRelease: releases[0].version,
     releases: releases.reduce((r, i) => {
       r[i.version] = i;
       return r;
