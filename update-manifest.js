@@ -8,7 +8,7 @@ const shaCmd = (() => {
     case "linux":
       return `sha256sum`;
     case "darwin":
-      return `shasum`;
+      return `shasum -a 256`;
     default:
       throw new Error(
         `Platform ${process.platform} does not have a way to compute sha256 digests.`

@@ -10,7 +10,7 @@
           "version": "1.0"
         }
       ],
-      "sha256": "a7bae0a328b221b1e110f77d847654404e88e71f"
+      "sha256": "9a82d70e2467ed6ebf1e95647c369dd2f392ef3a292d7fe73153bc18172aab56"
     },
     "3.2": {
       "path": "hp100-firmware-v3.2.hex",
@@ -21,7 +21,7 @@
           "version": "1.0"
         }
       ],
-      "sha256": "cc6d264311d72c88666f615adbe999361a63bf76"
+      "sha256": "b668461c35873a56f00da1216dc0c941b90b1b7ecd4f4ebff64549ed022beb8b"
     },
     "3.1": {
       "path": "hp100-firmware-v3.1.hex",
@@ -32,7 +32,7 @@
           "version": "1.0"
         }
       ],
-      "sha256": "bd3b4779a912dba14b30e3a597c3d02447b95712"
+      "sha256": "c0cc735b48998505a750b94de483b0dff0a8e21c4889d3ce154e0c04ad11b4ba"
     },
     "2.5": {
       "path": "hp100-firmware-v2.5.hex",
@@ -43,7 +43,7 @@
           "version": "1.0"
         }
       ],
-      "sha256": "1bc0d8653cb0224c5d4b3f929a6edc46e11917c0"
+      "sha256": "68cfe168c48ca0e3b1a0505a2988bf786b50589ef6800043ac6b370d637155c7"
     }
   }
 }
