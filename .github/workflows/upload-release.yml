@@ -8,9 +8,8 @@
 name: Build new release and push it to github
 
 on:
-  issues:
-    types: 
-      - opened
+  schedule:
+    - cron: "0 0 * * *"
 
 env:
   RELEASE_BRANCH: release
