@@ -58,12 +58,17 @@ jobs:
 
       - name: Check if there's already a release with the same version
         if: "env.IS_RELEASE == 'true'"
+        env:
+          ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
           echo "Release version: $RELEASE_VERSION"
           cd releases/
           matching_release_in_the_repo="$(git ls-files "hp100/hp100-firmware-v$RELEASE_VERSION.hex")"
           release_already_exists="$(test -n "$matching_release_in_the_repo" && echo true || echo false)"
           echo "Already exists? $release_already_exists"
+          if [[ $release_already_exists == "true" ]]; then
+            gh issue close $ISSUE_URL
+          fi
 
           # There's no way to just stop a job without failing and that would spam everyone with
           # spurious e-mail notifications about the failure. Instead we have to make do with `if`s.
