@@ -16,6 +16,6 @@ jobs:
     steps:
       - name: Clone hp100 and releases repositories without checking out working copies
         env:
-          ISSUE_OBJ: ${{ github.event.issue }}
+          ISSUE_OBJ: ${{ github.event.issue.title }}
         run: |
           echo "$ISSUE_OBJ"
