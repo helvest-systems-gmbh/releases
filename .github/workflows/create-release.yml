@@ -16,6 +16,8 @@ env:
   RELEASE_BRANCH: release
   COMMITTER_NAME: release-gh-action
   COMMITTER_EMAIL: releases@helvest.ch
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ISSUE_URL: ${{ github.event.issue.html_url }}
   
 defaults:
   run:
