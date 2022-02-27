@@ -44,6 +44,7 @@ jobs:
       - name: Check issue title and determine new release version
         env:
           ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
           cd hp100/
           ls -al
@@ -54,6 +55,9 @@ jobs:
           is_release=$([[ ($last_tag == release/*) && ($ISSUE_TITLE =~ $issue_title_pattern) ]] && echo "true" || echo "false")
           echo "Is release? $is_release"
           echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
+          if [[ $is_release == "false" ]]; then
+            gh issue close $ISSUE_URL
+          fi
           test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV || true
 
       - name: Check if there's already a release with the same version
