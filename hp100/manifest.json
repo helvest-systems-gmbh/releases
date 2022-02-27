@@ -1,27 +1,5 @@
 {
   "releases": {
-    "3.4": {
-      "path": "hp100-firmware-v3.4.hex",
-      "version": "3.4",
-      "supports": [
-        {
-          "model": "HP100",
-          "version": "1.0"
-        }
-      ],
-      "sha256": "9a82d70e2467ed6ebf1e95647c369dd2f392ef3a292d7fe73153bc18172aab56"
-    },
-    "3.2": {
-      "path": "hp100-firmware-v3.2.hex",
-      "version": "3.2",
-      "supports": [
-        {
-          "model": "HP100",
-          "version": "1.0"
-        }
-      ],
-      "sha256": "b668461c35873a56f00da1216dc0c941b90b1b7ecd4f4ebff64549ed022beb8b"
-    },
     "3.1": {
       "path": "hp100-firmware-v3.1.hex",
       "version": "3.1",
