@@ -1,16 +1,5 @@
 {
   "releases": {
-    "3.1": {
-      "path": "hp100-firmware-v3.1.hex",
-      "version": "3.1",
-      "supports": [
-        {
-          "model": "HP100",
-          "version": "1.0"
-        }
-      ],
-      "sha256": "c0cc735b48998505a750b94de483b0dff0a8e21c4889d3ce154e0c04ad11b4ba"
-    },
     "2.5": {
       "path": "hp100-firmware-v2.5.hex",
       "version": "2.5",
