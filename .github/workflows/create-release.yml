@@ -151,3 +151,7 @@ jobs:
           cd releases/
           echo "./add-release-and-push.sh ../hp100-firmware.hex $RELEASE_VERSION"
           ./add-release-and-push.sh ../hp100-firmware.hex "$RELEASE_VERSION"
+          
+      - name: Close triggering issue
+        run: |
+          gh issue close $ISSUE_URL
