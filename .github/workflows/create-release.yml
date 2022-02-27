@@ -8,8 +8,9 @@
 name: Build new release and push it to github
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  issues:
+    types:
+      - opened
 
 env:
   RELEASE_BRANCH: release
@@ -29,6 +30,17 @@ jobs:
       release-already-exists: ${{ env.RELEASE_ALREADY_EXISTS }}
 
     steps:
+      - name: Check issue title
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          echo "Issue title: $ISSUE_TITLE"
+          pattern='^Release v[0-9]+\.[0-9]+$'
+          is_release=$([[ $ISSUE_TITLE =~ $pattern ]] && echo "true" || echo "false")
+          echo "Is release? $is_release"
+          echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
+          test $is_release == "true" && echo "RELEASE_VERSION=$(echo $ISSUE_TITLE | tr -d "Release v")" >> $GITHUB_ENV || true
+          
       - name: Clone hp100 and releases repositories without checking out working copies
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
@@ -40,13 +52,16 @@ jobs:
           pushd hp100/ && git reset HEAD --quiet && popd
           pushd releases/ && git reset HEAD --quiet && popd
 
-      - name: Determine new release version
+      - name: Check issue title and determine new release version
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
           cd hp100/
           ls -al
           last_tag="$(git describe --tags --abbrev=0)"
+          echo "Issue title: $ISSUE_TITLE"
           echo "Last tag: $last_tag"
-          is_release=$([[ $last_tag == release/* ]] && echo "true" || echo "false")
+          is_release=$([[ $last_tag == release/* && $ISSUE_TITLE ~= '^Release v[0-9]+\.[0-9]+$' ]] && echo "true" || echo "false")
           echo "Is release? $is_release"
           echo "IS_RELEASE=${is_release}" >> $GITHUB_ENV
           test $is_release == "true" && echo "RELEASE_VERSION=$(echo $last_tag | tr -d "release/")" >> $GITHUB_ENV || true
