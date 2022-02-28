@@ -32,7 +32,9 @@ if [[ $(git status --porcelain) != "" ]]; then
 fi
 
 if [[ $token == "" ]]; then
+    echo "standard push"
     git push origin HEAD
 else
+    echo "token push"
     git push "https://$token@github.com/helvest-systems-gmbh/releases.git"
 fi
