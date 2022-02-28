@@ -31,10 +31,10 @@ if [[ $(git status --porcelain) != "" ]]; then
     die "Unexpected file modifications found. This should never happen and might be the result of a bug."
 fi
 
-if [[ $token == "" ]]; then
-    echo "standard push"
-    git push origin HEAD
-else
-    echo "token push"
-    git push "https://$token@github.com/helvest-systems-gmbh/releases.git"
-fi
+#if [[ $token == "" ]]; then
+#    echo "standard push"
+#    git push origin HEAD
+#else
+#    echo "token push"
+#    git push "https://$token@github.com/helvest-systems-gmbh/releases.git"
+#fi
