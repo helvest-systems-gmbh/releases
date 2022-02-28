@@ -8,8 +8,7 @@ die() {
 
 release_firmware="$1"
 release_version="$2"
-token="$3"
-(( $# == 2 || $# == 3 )) || die "Expected 2 or 3 parameters."
+(( $# == 2 )) || die "Expected exactly 2 parameters."
 
 if [[ $(git status --porcelain) != "" ]]; then
     >&2 git status
@@ -31,10 +30,4 @@ if [[ $(git status --porcelain) != "" ]]; then
     die "Unexpected file modifications found. This should never happen and might be the result of a bug."
 fi
 
-#if [[ $token == "" ]]; then
-#    echo "standard push"
-#    git push origin HEAD
-#else
-#    echo "token push"
-#    git push "https://$token@github.com/helvest-systems-gmbh/releases.git"
-#fi
+git push origin HEAD
