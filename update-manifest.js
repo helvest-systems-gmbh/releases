@@ -25,7 +25,7 @@ const makeEntry = async (dir, parsedFileName) => {
 
   return {
     url: `https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/${parsedFileName[0]}`,
-    path: parsedFileName[0],
+    name: parsedFileName[0],
     version: parsedFileName[1],
     supports: [
       {
