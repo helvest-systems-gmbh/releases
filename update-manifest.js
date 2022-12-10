@@ -24,6 +24,7 @@ const makeEntry = async (dir, parsedFileName) => {
   const sha256 = stdout.split(/\s+/)[0];
 
   return {
+    url: `https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/${parsedFileName[0]}`,
     path: parsedFileName[0],
     version: parsedFileName[1],
     supports: [

@@ -1,6 +1,7 @@
 {
   "releases": {
     "3.2": {
+      "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v3.2.hex",
       "path": "hp100-firmware-v3.2.hex",
       "version": "3.2",
       "supports": [
@@ -12,6 +13,7 @@
       "sha256": "224e2394a66e0f654a37904cd5a58e89e3748fec2d550fc848d3fc0346c87b3c"
     },
     "3.1": {
+      "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v3.1.hex",
       "path": "hp100-firmware-v3.1.hex",
       "version": "3.1",
       "supports": [
@@ -23,6 +25,7 @@
       "sha256": "363c5ccf6d8d4611477ba10380708f580e4b20ce3b14466b70ff132f975d66d4"
     },
     "2.5": {
+      "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v2.5.hex",
       "path": "hp100-firmware-v2.5.hex",
       "version": "2.5",
       "supports": [
