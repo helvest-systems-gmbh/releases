@@ -1,5 +1,17 @@
 {
   "releases": {
+    "4.3": {
+      "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v4.3.hex",
+      "name": "hp100-firmware-v4.3.hex",
+      "version": "4.3",
+      "supports": [
+        {
+          "model": "HP100",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "7ce591be23e30ef21587aa4fe7d53d65251444c341ad6541d4c299417f8ea098"
+    },
     "4.2": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v4.2.hex",
       "name": "hp100-firmware-v4.2.hex",
