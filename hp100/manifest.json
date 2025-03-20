@@ -10,7 +10,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "28c00cd07f27e52107ff6df7eafece90e6eec94d498798f4f3659c588db70570"
+      "sha256": "28c00cd07f27e52107ff6df7eafece90e6eec94d498798f4f3659c588db70570",
+      "releaseDate": "2024-11-30"
     },
     "4.3": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v4.3.hex",
@@ -22,7 +23,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "7ce591be23e30ef21587aa4fe7d53d65251444c341ad6541d4c299417f8ea098"
+      "sha256": "7ce591be23e30ef21587aa4fe7d53d65251444c341ad6541d4c299417f8ea098",
+      "releaseDate": "2024-08-31"
     },
     "4.2": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v4.2.hex",
@@ -34,7 +36,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "377a812f3b002e03c13e5a74c087bc575eb566bb068d62332aa6682b2d0f0447"
+      "sha256": "377a812f3b002e03c13e5a74c087bc575eb566bb068d62332aa6682b2d0f0447",
+      "releaseDate": "2024-06-15"
     },
     "4.1": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v4.1.hex",
@@ -46,7 +49,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "4a8ba5aefc9135198f3d8c793b40422c21b81d951dcec075dcb0f68f1ccdab93"
+      "sha256": "4a8ba5aefc9135198f3d8c793b40422c21b81d951dcec075dcb0f68f1ccdab93",
+      "releaseDate": "2024-05-10"
     },
     "4.0": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v4.0.hex",
@@ -58,7 +62,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "4551965d1102456b6cf87f554903701ac9d10a90102041d8a16b8a9474c309d5"
+      "sha256": "4551965d1102456b6cf87f554903701ac9d10a90102041d8a16b8a9474c309d5",
+      "releaseDate": "2023-12-10"
     },
     "3.3": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v3.3.hex",
@@ -70,7 +75,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "48d83d353773b5009fc62fef1f7929c81ae7a0507cf80edf935df0b39c5f2ff2"
+      "sha256": "48d83d353773b5009fc62fef1f7929c81ae7a0507cf80edf935df0b39c5f2ff2",
+      "releaseDate": "2023-02-06"
     },
     "3.2": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v3.2.hex",
@@ -82,7 +88,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "224e2394a66e0f654a37904cd5a58e89e3748fec2d550fc848d3fc0346c87b3c"
+      "sha256": "224e2394a66e0f654a37904cd5a58e89e3748fec2d550fc848d3fc0346c87b3c",
+      "releaseDate": "2022-06-16"
     },
     "3.1": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v3.1.hex",
@@ -94,7 +101,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "363c5ccf6d8d4611477ba10380708f580e4b20ce3b14466b70ff132f975d66d4"
+      "sha256": "363c5ccf6d8d4611477ba10380708f580e4b20ce3b14466b70ff132f975d66d4",
+      "releaseDate": "2022-03-01"
     },
     "2.5": {
       "url": "https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/hp100-firmware-v2.5.hex",
@@ -106,7 +114,8 @@
           "version": "1.0"
         }
       ],
-      "sha256": "68cfe168c48ca0e3b1a0505a2988bf786b50589ef6800043ac6b370d637155c7"
+      "sha256": "68cfe168c48ca0e3b1a0505a2988bf786b50589ef6800043ac6b370d637155c7",
+      "releaseDate": "2021-10-28"
     }
   }
 }

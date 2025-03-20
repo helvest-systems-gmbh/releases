@@ -1,9 +1,9 @@
 const fs = require("fs");
 const util = require("util");
 const path = require("path");
+const execAsync = util.promisify(require("child_process").exec);
 
 const shaCmd = (() => {
-  let cmd = "";
   switch (process.platform) {
     case "linux":
       return `sha256sum`;
@@ -19,9 +19,12 @@ const shaCmd = (() => {
 const makeEntry = async (dir, parsedFileName) => {
   const pathRelativeToRoot = path.join(dir, parsedFileName[0]);
   const absolutePath = path.join(__dirname, pathRelativeToRoot);
-  const exec = util.promisify(require("child_process").exec);
-  const { stdout } = await exec(`${shaCmd} ${absolutePath}`);
-  const sha256 = stdout.split(/\s+/)[0];
+  const shaCmdResult = await execAsync(`${shaCmd} ${absolutePath}`);
+  const sha256 = shaCmdResult.stdout.split(/\s+/)[0];
+  const releaseDateCmdResult = await execAsync(
+    `git log --diff-filter=A --follow --format="%ad" --date=short -- ${absolutePath}`
+  );
+  const releaseDate = releaseDateCmdResult.stdout.split("\n")[0].trim();
 
   return {
     url: `https://raw.githubusercontent.com/helvest-systems-gmbh/releases/main/hp100/${parsedFileName[0]}`,
@@ -34,6 +37,7 @@ const makeEntry = async (dir, parsedFileName) => {
       },
     ],
     sha256,
+    releaseDate,
   };
 };
 
